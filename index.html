@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>API League of Legends</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script type="module" src="./js/main.js" defer></script>
+        <script src="https://kit.fontawesome.com/bd6996c3ec.js" crossorigin="anonymous"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    screens: {
+                        'sm': { 'min': '0px', 'max': '767px' },
+                        'md': { 'min': '768px', 'max': '1023px' },
+                        'lg': { 'min': '1024px', 'max': '1279px' },
+                        'xl': { 'min': '1280px', 'max': '1535px' },
+                        '2xl': { 'min': '1536px' }
+                    }
+                }
+            }
+        </script>
+        <style>
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            
+            body {
+                width: 100vw;
+            }
+            
+
+            .esconder {
+                position: absolute;
+                left: 0;
+                top: -70px;
+                transition: 0.6s;
+            }
+
+            .mostrar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                transition: 0.6s;
+            }
+
+            .invisivel {
+                display: none;
+            }
+
+            .visivel {
+                display: block;
+            }
+
+            .linha-separar {
+                width: 90%;
+                height: 2px;
+                background-color: gray;
+                margin: 30px 0px;
+            }
+
+        </style>
+    </head>
+    <body class="bg-[#18181b]">
+
+        <div class="flex flex-col">
+
+            <div class="h-[60px] flex justify-center w-full esconder" id="key-text-top">
+                <input class="mx-5 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="text-key" placeholder="Key...">
+            </div>
+
+            <div class="h-[250px] mt-5 pt-5 flex flex-col items-center justify-center">
+                <div class="w-[300px] h-[100px] mt-4">
+                    <input class="shadow appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="search-text" placeholder="Pesquisar Usuário...">
+                    <span class="flex justify-center mt-3">
+                        <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-3 rounded" id="search-button">Search</button>
+                        <button class="rounded py-2 px-3 ml-2 bg-white hover:bg-[#e4e4e7]" id="key-button">
+                            <i class="fa-solid fa-key" style="color: #888b91;"></i>
+                        </button>
+                    </span>
+                </div>
+
+                <div class="flex mt-4">
+                    <button class="w-[70px] h-[70px] bg-[#52525b] rounded-lg font-bold mx-2 invisivel button-down">
+                        <div><i class="fa-solid fa-user"></i></div>
+                        <p>Profile</p>
+                    </button>
+                    <button class="w-[70px] h-[70px] bg-[#52525b] rounded-lg font-bold mx-2 invisivel button-down">
+                        <div><i class="fa-solid fa-grip"></i></div>
+                        <p>Match</p>
+                    </button>
+                </div>
+            </div>
+
+            <div class="w-full flex justify-center items-center mb-[100px]">
+
+                <div class="w-[700px] min-w-[300px] mx-3 p-3 border-2 rounded-lg border-[#ea580c] bg-[#262626]" id="area-exibicao">
+
+                </div>
+
+            </div>
+
+        </div>
+        
+    </body>
+</html>
