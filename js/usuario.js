@@ -1,4 +1,3 @@
-
 export default class Usuario {
 
     urlSummoner = "";
@@ -12,13 +11,9 @@ export default class Usuario {
     #puuid = "";
     #summonerLevel = 0;
 
-    #partidas = [];
-
     profile(dados = null, tipo, screen) {
 
         if (tipo == 'salvar') {
-
-            //console.log('Respota: ', dados);
 
             this.#accountId = dados.accountId;
             this.#id = dados.id;
@@ -27,11 +22,7 @@ export default class Usuario {
             this.#puuid = dados.puuid;
             this.#summonerLevel = dados.summonerLevel;
 
-            //console.log(this);
-
         } else if (tipo == 'renderizar') {
-
-            //console.log(this);
 
             this.montarProfile(screen);
 
@@ -39,15 +30,13 @@ export default class Usuario {
 
     }
 
-    async partidas(screen) {
+    async partidas(screen, api) {
 
         await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${this.#puuid}/ids?start=0&count=20&api_key=${this.key}`)
             .then(response => {
                 return response.json();
             })
             .then(matchs => {
-                // Pegando as partidas do usuário
-                //console.log(matchs);
 
                 matchs.forEach((match, index) => {
 
@@ -61,7 +50,8 @@ export default class Usuario {
                 });
             })
             .catch(error => {
-                // Error
+
+                api.error(screen);
 
                 console.error("Error: ", error);
 
@@ -75,7 +65,6 @@ export default class Usuario {
         await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/${matchGame}?api_key=${this.key}`)
                 .then(response => { return response.json(); })
                 .then(dados => {
-                    //console.log(dados);
                 
                     dados.info.participants.forEach(participante => {
                         if (participante.summonerId == this.#id) {
@@ -111,7 +100,7 @@ export default class Usuario {
 
                 })
                 .catch(error => {
-                    console.error(error);
+                    console.error("Error:", error);
                 })
 
     }
@@ -121,7 +110,6 @@ export default class Usuario {
         fetch(`https://br1.api.riotgames.com/lol/league/v4/entries/by-summoner/${this.#id}?api_key=${this.key}`)
             .then(response => { return response.json() })
             .then(dadosUser => {
-                console.log(dadosUser);
 
                 areaScreen.innerHTML = `
                     <div class="flex flex-col items-center m-2">

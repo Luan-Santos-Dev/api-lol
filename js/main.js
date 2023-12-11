@@ -16,12 +16,11 @@ document.getElementById("search-button").addEventListener("click", async () => {
 
     if (valorInputKey != "") {
 
-        // Fazendo um teste antes de começar a trabalhar com os dados
         Api.testeUsuario(nomePesquisa, valorInputKey, exibicao, Usuario, buttons);
 
     } else {
 
-        Api.errorKey(exibicao); // Avisa o usuário que o problema está na Key "PAROU AQUI, TEM QUE FAZER ESSE MÉTODO URGENTE!!!"
+        Api.errorKey(exibicao);
 
     }
 
@@ -39,19 +38,17 @@ document.getElementById("key-button").addEventListener("click", () => {
 
 });
 
-buttons[0].addEventListener("click", () => { // Perfil do usuário
+buttons[0].addEventListener("click", () => { // Perfil
 
     exibicao.innerHTML = "";
-
     Usuario.profile('', 'renderizar', exibicao);
 
 });
 
-buttons[1].addEventListener("click", () => { // Partidas do usuário
+buttons[1].addEventListener("click", () => { // Partidas
 
     exibicao.innerHTML = "";
-
-    Usuario.partidas(exibicao);
+    Usuario.partidas(exibicao, Api);
 
 });
 
