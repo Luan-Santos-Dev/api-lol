@@ -23,8 +23,6 @@ export default class Usuario {
 
         if (tipo == 'salvar') {
 
-            console.log("Dentro do User: ", dados);
-
             this.#accountId = dados.accountId;
             this.#id = dados.id;
             this.#name = dados.name;
@@ -40,7 +38,7 @@ export default class Usuario {
 
     }
 
-    async dadosPartida(matchGame, localizador) {
+    async dadosPartida(matchGame, localizador, api) {
 
         let spanLocal = document.getElementById(`match-${localizador}`);
 
@@ -82,7 +80,8 @@ export default class Usuario {
 
                 })
                 .catch(error => {
-                    console.error("Error:", error);
+                    api.error();
+                    //console.error("Error:", error);
                 })
 
     }

@@ -34,7 +34,6 @@ export default class API {
 
             } else {
                 // Se ele não achar nenhum item compativel no CACHE ele vem aqui
-                console.log("Sem sucesso na busca");
 
                 await fetch(`https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${nomeUsuario}?api_key=${key}`)
                     .then(response => {return response.json();})
@@ -51,7 +50,6 @@ export default class API {
                     .catch(error => {
                         this.MostrarTirarBotoes(buttons, false);
                         this.error(screenArea);
-                        console.log(error);
                     })
 
             }
@@ -71,7 +69,7 @@ export default class API {
 
                     screen.appendChild(spanConteudo);
 
-                    user.dadosPartida(match, index);
+                    user.dadosPartida(match, index, this);
 
                 });
 
@@ -90,8 +88,6 @@ export default class API {
                     })
                     .catch(error => {
                         this.error();
-
-                        console.log("Error: ", error);
                     })
             }
         }        
