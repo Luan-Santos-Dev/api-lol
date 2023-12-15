@@ -1,6 +1,6 @@
 
-import User from './usuario.js';
-import Riot from './api.js';
+import User from './UserClass.js';
+import Riot from './ApiClass.js';
 
 const exibicao = document.getElementById("area-exibicao");
 const keyTextTop = document.getElementById("key-text-top");
@@ -48,7 +48,7 @@ buttons[0].addEventListener("click", () => { // Perfil
 buttons[1].addEventListener("click", () => { // Partidas
 
     exibicao.innerHTML = "";
-    Usuario.partidas(exibicao, Api);
+    Api.partidas(exibicao, Usuario);
 
 });
 

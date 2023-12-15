@@ -11,9 +11,19 @@ export default class Usuario {
     #puuid = "";
     #summonerLevel = 0;
 
-    profile(dados = null, tipo, screen) {
+    obterNomeUsuario() {
+        return this.#name;
+    }
+
+    obterPuuidUsuario() {
+        return this.#puuid;
+    }
+
+    profile(dados = null, tipo, screen = "") {
 
         if (tipo == 'salvar') {
+
+            console.log("Dentro do User: ", dados);
 
             this.#accountId = dados.accountId;
             this.#id = dados.id;
@@ -30,35 +40,7 @@ export default class Usuario {
 
     }
 
-    async partidas(screen, api) {
-
-        await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${this.#puuid}/ids?start=0&count=20&api_key=${this.key}`)
-            .then(response => {
-                return response.json();
-            })
-            .then(matchs => {
-
-                matchs.forEach((match, index) => {
-
-                    let spanConteudo = document.createElement("span");
-                    spanConteudo.id = `match-${index}`;
-
-                    screen.appendChild(spanConteudo);
-                    
-                    this.dadosPartida(match, index, screen);
-
-                });
-            })
-            .catch(error => {
-
-                api.error(screen);
-
-                console.error("Error: ", error);
-
-            })
-    }
-
-    async dadosPartida(matchGame, localizador, tela) {
+    async dadosPartida(matchGame, localizador) {
 
         let spanLocal = document.getElementById(`match-${localizador}`);
 
