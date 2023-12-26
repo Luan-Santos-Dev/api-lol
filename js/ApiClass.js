@@ -41,7 +41,7 @@ export default class API {
 
                         this.obterCache().setItem(nomeUsuario, user, {
                             expirationAbsolute: null,
-                            expirationSliding: null,
+                            expirationSliding: 60,
                             priority: Cache.Priority.NORMAL,
                             callback: function (k, v) { console.log("removido: ", k); }
                         });
@@ -60,6 +60,21 @@ export default class API {
 
     async partidas (screen, user) {
 
+        await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${user.obterPuuidUsuario()}/ids?start=0&count=20&api_key=${user.key}`)
+        .then(response => { return response.json() })
+        .then(matches => {
+          
+            user.atualizarPartidas(matches);
+
+            user.renderizarTabelaPartidas(1, 0, 4, screen);
+
+        })
+        .catch(err => {
+            console.log(err);
+            throw new Error("Não foi possível continuar");
+        })
+
+        /*
         while (true) {
             if (this.obterCache().getItem(`match-${user.obterNomeUsuario()}`)) {
 
@@ -69,28 +84,37 @@ export default class API {
 
                     screen.appendChild(spanConteudo);
 
-                    user.dadosPartida(match, index, this);
+                    user.dadosPartida(match, index, this, screen);
 
                 });
 
                 break;
 
             } else {
-                await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${user.obterPuuidUsuario()}/ids?start=0&count=20&api_key=${user.key}`)
-                    .then(response => response.json())
-                    .then(matchs => {
-                        this.obterCache().setItem(`match-${user.obterNomeUsuario()}`, matchs, {
-                            expirationAbsolute: null,
-                            expirationSliding: null,
-                            priority: Cache.Priority.NORMAL,
-                            callback: function (k, v) { console.log("removido: ", k); }
-                        });
-                    })
-                    .catch(error => {
-                        this.error();
-                    })
+
+                try {
+                    await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${user.obterPuuidUsuario()}/ids?start=0&count=20&api_key=${user.key}`)
+                        .then(response => {
+                            return response.json()
+                        })
+                        .then(matchs => {
+                            this.obterCache().setItem(`match-${user.obterNomeUsuario()}`, matchs, {
+                                expirationAbsolute: null,
+                                expirationSliding: 60,
+                                priority: Cache.Priority.NORMAL,
+                                callback: function (k, v) { console.log("removido: ", k); }
+                            });
+                        })
+                        .catch(error => {
+                            this.error(screen);
+                        })
+                } catch (error) {
+                    console.log("Error: ");
+                    throw new Error(error);
+                }
             }
-        }        
+        }
+        */
 
     }
 
@@ -165,6 +189,17 @@ export default class API {
 
         }
 
+    }
+
+    quantidadeCache() {
+
+        /*
+        if (this.obterCache().size() >= 4) {
+            this.obterCache().clear();
+        }
+        */
+
+        console.log(this.obterCache().size());
     }
 
 }

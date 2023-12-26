@@ -45,12 +45,7 @@ buttons[0].addEventListener("click", () => { // Perfil
 
 });
 
-buttons[1].addEventListener("click", () => { // Partidas
-
-    exibicao.innerHTML = "";
-    Api.partidas(exibicao, Usuario);
-
-});
+buttons[1].addEventListener("click", () => { Api.partidas(exibicao, Usuario); }); // Partidas
 
 function editarNome(value) {
     let result= "";
