@@ -2,12 +2,15 @@
 
 ## Capturas de tela
 
-- Perfil
-<img src="media/profile.png">
+- ## Perfil
+<p align="center">
+  <img src="media/profile.png">
+</p>
 
-- Partidas
-<img src="media/matches.png">
-
+- ## Partidas
+<p align="center">
+  <img src="media/matches.png" style="">
+</p>
 
 # Rodando localmente
 
